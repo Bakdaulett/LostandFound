@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>My Profile</h2>
+    <div>
+        <p style="font-size: 17px">
+            <strong>Username: </strong> {{ request.user.username }} <br>
+            <strong>Date Joined:</strong> {{ request.user.date_joined }} <br>
+            <strong>Email:</strong> {{ request.user.email }}<br>
+            <strong>Last Login:</strong> {{ request.user.last_login }}<br>
+        </p>
+    </div>
+    <button id="editButton">Edit</button>
+    <form id="editForm" method="post" enctype="multipart/form-data" style="display: none;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update</button>
+    </form>
+    <br>
+    <hr>
+    <p><a href="{% url 'index' %}">Return to home page</a></p>
+
+    <script>
+        document.getElementById('editButton').addEventListener('click', function() {
+            document.getElementById('editForm').style.display = 'block';
+            this.style.display = 'none';
+        });
+    </script>
+{% endblock %}
